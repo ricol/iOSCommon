@@ -1,6 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = 'iOSCommon'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
+  s.swift_version    = '4.2'
   s.summary          = 'A library which stores common codes used for iOS App development'
   s.description      = <<-DESC
 This a library which stores some common functionalities used for iOS app development
