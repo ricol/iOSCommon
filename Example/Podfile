@@ -2,5 +2,4 @@ use_frameworks!
 
 target 'iOSCommon_Example' do
   pod 'iOSCommon', :path => '../'
-  end
 end
