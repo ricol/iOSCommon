@@ -11,6 +11,7 @@ import iOSCommon
 
 class ViewController: UIViewController
 {
+    @IBOutlet weak var viewAnimation: UIView!
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -21,5 +22,15 @@ class ViewController: UIViewController
     {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func btnStartOnTapped(_ sender: Any)
+    {
+        viewAnimation.startRotate()
+    }
+    
+    @IBAction func btnStopOnTapped(_ sender: Any)
+    {
+        viewAnimation.stopRotate()
     }
 }

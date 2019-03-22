@@ -215,7 +215,7 @@ extension UIView
     
     public func startRotate(_ atspeed: Double = 4, _ fun: Block? = nil)
     {
-        self.stopRotate()
+        if self.layer.animation(forKey: Animation.Rotate.key) != nil { return }
         
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotateAnimation.fromValue = 0.0
@@ -235,6 +235,8 @@ extension UIView
     
     public func stopRotate(_ fun: Block? = nil)
     {
+        if self.layer.animation(forKey: Animation.Rotate.key) == nil { return }
+        
         self.layer.removeAnimation(forKey: Animation.Rotate.key)
         
         if let theFun = fun
