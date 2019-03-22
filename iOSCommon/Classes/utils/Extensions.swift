@@ -199,7 +199,6 @@ extension UIView
         
         struct Rotate
         {
-            static var isAnimating = false
             static let key = "ViewRotate"
         }
         
@@ -209,30 +208,23 @@ extension UIView
         }
     }
     
-    private func stopRotating()
-    {
-        self.layer.removeAnimation(forKey: Animation.Rotate.key)
-    }
-    
     public func startRotate(_ fun: Block? = nil)
     {
         self.startRotate(2, fun)
     }
     
-    public func startRotate(_ atspeed: Double = 2, _ fun: Block? = nil)
+    public func startRotate(_ atspeed: Double = 4, _ fun: Block? = nil)
     {
-        if Animation.Rotate.isAnimating { return }
+        self.stopRotate()
         
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotateAnimation.fromValue = 0.0
-        let degree = Double.pi * 2.0 * 100000
+        let degree = Double.pi * 2.0
         rotateAnimation.toValue = degree
         rotateAnimation.duration = degree / atspeed
+        rotateAnimation.repeatCount = 1000
         
         self.layer.add(rotateAnimation, forKey: Animation.Rotate.key)
-        
-        Animation.Rotate.isAnimating = true
-        
         if let theFun = fun
         {
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.1) {
@@ -243,10 +235,7 @@ extension UIView
     
     public func stopRotate(_ fun: Block? = nil)
     {
-        if !Animation.Rotate.isAnimating { return }
-        
-        self.stopRotating()
-        Animation.Rotate.isAnimating = false
+        self.layer.removeAnimation(forKey: Animation.Rotate.key)
         
         if let theFun = fun
         {
@@ -258,7 +247,7 @@ extension UIView
     
     public func toggleRotate(startRotate: Block?, endRotate: Block?)
     {
-        !Animation.Rotate.isAnimating ? self.startRotate(2, startRotate) : self.stopRotate(endRotate)
+        self.layer.animation(forKey: Animation.Rotate.key) == nil ? self.startRotate(2, startRotate) : self.stopRotate(endRotate)
     }
     
     public func shake()
