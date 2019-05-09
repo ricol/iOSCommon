@@ -1,5 +1,5 @@
 PODS:
-  - iOSCommon (0.1.0)
+  - iOSCommon (0.2.0)
 
 DEPENDENCIES:
   - iOSCommon (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  iOSCommon: 1a8e2ebb11409a2d28fe8780ae1febd4fa33b7a1
+  iOSCommon: eaaf0456cc277c2c30c908a0111cc47c5d517f75
 
 PODFILE CHECKSUM: 8d2aab3a7b4509013c575dd5cd3780652fc1354f
 

@@ -10,22 +10,22 @@ import Foundation
 
 extension UIColor
 {
-    static public func randomColor() -> UIColor
+    @objc static public func randomColor() -> UIColor
     {
         return UIColor(red: CGFloat(Int(arc4random()) % 255), green: CGFloat(Int(arc4random()) % 255), blue: CGFloat(Int(arc4random()) % 255), alpha: 1)
     }
     
-    public func lighter(by percentage: CGFloat = 30.0) -> UIColor?
+    @objc public func lighter(by percentage: CGFloat = 30.0) -> UIColor?
     {
         return adjust(by: abs(percentage))
     }
     
-    public func darker(by percentage: CGFloat = 30.0) -> UIColor?
+    @objc public func darker(by percentage: CGFloat = 30.0) -> UIColor?
     {
         return adjust(by: -1 * abs(percentage))
     }
     
-    public func adjust(by percentage: CGFloat = 30.0) -> UIColor?
+    @objc public func adjust(by percentage: CGFloat = 30.0) -> UIColor?
     {
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         if getRed(&r, green: &g, blue: &b, alpha: &a)
@@ -92,7 +92,7 @@ extension UIView
 {
     // MARK: - View Style
     
-    public func roundCorners(corners: UIRectCorner, radius: CGFloat)
+    @objc public func roundCorners(corners: UIRectCorner, radius: CGFloat)
     {
         let path = UIBezierPath(roundedRect: bounds,
                                 byRoundingCorners: corners,
@@ -102,20 +102,20 @@ extension UIView
         layer.mask = maskLayer
     }
     
-    public func roundCornersForRadius(radius: CGFloat)
+    @objc public func roundCornersForRadius(radius: CGFloat)
     {
         layer.cornerRadius = radius
         layer.masksToBounds = true
     }
     
-    public func roundCorners()
+    @objc public func roundCorners()
     {
         self.roundCornersForRadius(radius: self.frame.size.height / 2.0)
     }
     
     // MARK: - Random Color For all Subviews for testing purpose
     
-    public func randomColor()
+    @objc public func randomColor()
     {
         backgroundColor = UIColor.randomColor()
         
@@ -125,7 +125,7 @@ extension UIView
         }
     }
     
-    public func clearBGColor()
+    @objc public func clearBGColor()
     {
         backgroundColor = UIColor.clear
         
@@ -135,7 +135,7 @@ extension UIView
         }
     }
     
-    public func clearText()
+    @objc public func clearText()
     {
         if let lbl = self as? UILabel
         {
@@ -157,7 +157,7 @@ extension UIView
     
     // MARK: - Remove all subviews
     
-    public func removeAllSubviews()
+    @objc public func removeAllSubviews()
     {
         for v in subviews
         {
@@ -165,7 +165,7 @@ extension UIView
         }
     }
     
-    public func getAllSubViews() -> [UIView]
+    @objc public func getAllSubViews() -> [UIView]
     {
         var views = [UIView]()
         
@@ -179,7 +179,7 @@ extension UIView
         return views
     }
     
-    public func getExpectHeightForKeyboardOverlap(keyboardFrame: CGRect) -> CGFloat
+    @objc public func getExpectHeightForKeyboardOverlap(keyboardFrame: CGRect) -> CGFloat
     {
         if let superView = self.superview, let window = UIApplication.shared.keyWindow
         {
@@ -208,12 +208,12 @@ extension UIView
         }
     }
     
-    public func startRotate(_ fun: Block? = nil)
+    @objc public func startRotate(_ fun: Block? = nil)
     {
         self.startRotate(2, fun)
     }
     
-    public func startRotate(_ atspeed: Double = 4, _ fun: Block? = nil)
+    @objc public func startRotate(_ atspeed: Double = 4, _ fun: Block? = nil)
     {
         if self.layer.animation(forKey: Animation.Rotate.key) != nil { return }
         
@@ -233,7 +233,7 @@ extension UIView
         }
     }
     
-    public func stopRotate(_ fun: Block? = nil)
+    @objc public func stopRotate(_ fun: Block? = nil)
     {
         if self.layer.animation(forKey: Animation.Rotate.key) == nil { return }
         
@@ -247,12 +247,12 @@ extension UIView
         }
     }
     
-    public func toggleRotate(startRotate: Block?, endRotate: Block?)
+    @objc public func toggleRotate(startRotate: Block?, endRotate: Block?)
     {
         self.layer.animation(forKey: Animation.Rotate.key) == nil ? self.startRotate(2, startRotate) : self.stopRotate(endRotate)
     }
     
-    public func shake()
+    @objc public func shake()
     {
         let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
         animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
@@ -263,7 +263,7 @@ extension UIView
     
     // MARK: - Capture Output as an Image
     
-    public func toImage() -> UIImage?
+    @objc public func toImage() -> UIImage?
     {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0.0)
         if let context = UIGraphicsGetCurrentContext()
@@ -276,7 +276,7 @@ extension UIView
         return nil
     }
     
-    public func clearConstraints()
+    @objc public func clearConstraints()
     {
         for subview in self.subviews
         {
@@ -289,7 +289,7 @@ extension UIView
 
 extension NSNotification
 {
-    public func getKeyboardRect() -> CGRect
+    @objc public func getKeyboardRect() -> CGRect
     {
         if let userInfo = self.userInfo, let keyboardRect = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         {
@@ -304,17 +304,17 @@ extension NSNotification
 
 extension UINavigationController
 {
-    public func pop(animated: Bool)
+    @objc public func pop(animated: Bool)
     {
         _ = popViewController(animated: animated)
     }
     
-    public func popToRoot(animated: Bool)
+    @objc public func popToRoot(animated: Bool)
     {
         _ = popToRootViewController(animated: animated)
     }
     
-    public func popAndThenPush(vc: UIViewController, animated: Bool, count: Int = 1)
+    @objc public func popAndThenPush(vc: UIViewController, animated: Bool, count: Int = 1)
     {
         var navVCs = viewControllers
         var i = 0
@@ -327,7 +327,7 @@ extension UINavigationController
         setViewControllers(navVCs, animated: animated)
     }
     
-    public func popToRootAndThenPush(vc: UIViewController, animated: Bool)
+    @objc public func popToRootAndThenPush(vc: UIViewController, animated: Bool)
     {
         if let first = viewControllers.first
         {
@@ -353,21 +353,21 @@ extension Array where Element: Equatable
 
 extension NSNull
 {
-    public func length() -> Int { return 0 }
-    public func count() -> Int { return 0 }
+    @objc public func length() -> Int { return 0 }
+    @objc public func count() -> Int { return 0 }
     
-    public func integerValue() -> Int { return 0 }
+    @objc public func integerValue() -> Int { return 0 }
     
-    public func floatValue() -> Float { return 0 }
+    @objc public func floatValue() -> Float { return 0 }
     
-    open override var description: String { return "0(NSNull)" }
+    @objc open override var description: String { return "0(NSNull)" }
     
-    public func componentsSeparatedByString(separator _: String) -> [AnyObject] { return [AnyObject]() }
+    @objc public func componentsSeparatedByString(separator _: String) -> [AnyObject] { return [AnyObject]() }
     
-    public func objectForKey(key _: AnyObject) -> AnyObject? { return nil }
-    public func enumerateKeysAndObjectsUsingBlock(_: (Any, Any, UnsafeMutablePointer<ObjCBool>) -> Void) {}
-    public func enumerateKeysAndObjects(_: (Any, Any, UnsafeMutablePointer<ObjCBool>) -> Void) {}
-    public func boolValue() -> Bool { return false }
+    @objc public func objectForKey(key _: AnyObject) -> AnyObject? { return nil }
+    @objc public func enumerateKeysAndObjectsUsingBlock(_: (Any, Any, UnsafeMutablePointer<ObjCBool>) -> Void) {}
+    @objc public func enumerateKeysAndObjects(_: (Any, Any, UnsafeMutablePointer<ObjCBool>) -> Void) {}
+    @objc public func boolValue() -> Bool { return false }
 }
 
 extension Date
@@ -381,7 +381,7 @@ extension Date
 
 extension NSDate
 {
-    public func zeroSeconds() -> NSDate
+    @objc public func zeroSeconds() -> NSDate
     {
         let d = self as Date
         return d.zeroSeconds() as NSDate
@@ -390,7 +390,7 @@ extension NSDate
 
 extension NSLayoutConstraint
 {
-    static public func fullScreenConstraint(view: UIView, parent: UIView, margin: CGFloat, translatesAutoresizingMaskIntoConstraints: Bool, _ auto_add: Bool = true) -> [NSLayoutConstraint]
+    @objc static public func fullScreenConstraint(view: UIView, parent: UIView, margin: CGFloat, translatesAutoresizingMaskIntoConstraints: Bool, _ auto_add: Bool = true) -> [NSLayoutConstraint]
     {
         view.translatesAutoresizingMaskIntoConstraints = translatesAutoresizingMaskIntoConstraints
         
@@ -410,22 +410,22 @@ extension NSLayoutConstraint
         return constraints
     }
     
-    static public  func fullScreenConstraint(view: UIView, parent: UIView, margin: CGFloat, _ auto_add: Bool = true) -> [NSLayoutConstraint]
+    @objc static public  func fullScreenConstraint(view: UIView, parent: UIView, margin: CGFloat, _ auto_add: Bool = true) -> [NSLayoutConstraint]
     {
         return NSLayoutConstraint.fullScreenConstraint(view: view, parent: parent, margin: margin, translatesAutoresizingMaskIntoConstraints: false, auto_add)
     }
     
-    static public func fullScreenConstraint(view: UIView, parent: UIView, _ auto_add: Bool = true) -> [NSLayoutConstraint]
+    @objc static public func fullScreenConstraint(view: UIView, parent: UIView, _ auto_add: Bool = true) -> [NSLayoutConstraint]
     {
         return NSLayoutConstraint.fullScreenConstraint(view: view, parent: parent, margin: 0, translatesAutoresizingMaskIntoConstraints: false, auto_add)
     }
     
-    static public func fullScreenConstraint(view: UIView, parent: UIView, translatesAutoresizingMaskIntoConstraints: Bool, _ auto_add: Bool = true) -> [NSLayoutConstraint]
+    @objc static public func fullScreenConstraint(view: UIView, parent: UIView, translatesAutoresizingMaskIntoConstraints: Bool, _ auto_add: Bool = true) -> [NSLayoutConstraint]
     {
         return NSLayoutConstraint.fullScreenConstraint(view: view, parent: parent, margin: 0, translatesAutoresizingMaskIntoConstraints: translatesAutoresizingMaskIntoConstraints, auto_add)
     }
     
-    static public func centreConstraint(view: UIView, parent: UIView, translatesAutoresizingMaskIntoConstraints: Bool, _ auto_add: Bool = true) -> [NSLayoutConstraint]
+    @objc static public func centreConstraint(view: UIView, parent: UIView, translatesAutoresizingMaskIntoConstraints: Bool, _ auto_add: Bool = true) -> [NSLayoutConstraint]
     {
         view.translatesAutoresizingMaskIntoConstraints = translatesAutoresizingMaskIntoConstraints
         
@@ -442,12 +442,12 @@ extension NSLayoutConstraint
         return constraints
     }
     
-    static public func centreConstraint(view: UIView, parent: UIView, _ auto_add: Bool = true) -> [NSLayoutConstraint]
+    @objc static public func centreConstraint(view: UIView, parent: UIView, _ auto_add: Bool = true) -> [NSLayoutConstraint]
     {
         return NSLayoutConstraint.centreConstraint(view: view, parent: parent, translatesAutoresizingMaskIntoConstraints: false, auto_add)
     }
     
-    static public func normalConstraint(view: UIView, parent: UIView, _ auto_add: Bool = true) -> [NSLayoutConstraint]
+    @objc static public func normalConstraint(view: UIView, parent: UIView, _ auto_add: Bool = true) -> [NSLayoutConstraint]
     {
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -467,12 +467,12 @@ extension NSLayoutConstraint
 
 extension UIStoryboard
 {
-    static public func getVC(vc: String, from storyBoard: String) -> UIViewController
+    @objc static public func getVC(vc: String, from storyBoard: String) -> UIViewController
     {
         return UIStoryboard(name: storyBoard, bundle: nil).instantiateViewController(withIdentifier: vc)
     }
     
-    public func getVC(vc: String) -> UIViewController
+    @objc public func getVC(vc: String) -> UIViewController
     {
         return instantiateViewController(withIdentifier: vc)
     }
@@ -480,7 +480,7 @@ extension UIStoryboard
 
 extension UIImage
 {
-    public func resizeImage(targetSize: CGSize) -> UIImage
+    @objc public func resizeImage(targetSize: CGSize) -> UIImage
     {
         let image = self
         let size = image.size
@@ -510,7 +510,7 @@ extension UIImage
         return newImage!
     }
     
-    public func croppedImage(rect: CGRect) -> UIImage?
+    @objc public func croppedImage(rect: CGRect) -> UIImage?
     {
         guard let cgimage = self.cgImage else { return nil }
         
@@ -522,7 +522,7 @@ extension UIImage
         return nil
     }
     
-    public func cropImage(rect: CGRect) -> UIImage?
+    @objc public func cropImage(rect: CGRect) -> UIImage?
     {
         UIGraphicsBeginImageContext(rect.size)
         
@@ -538,7 +538,7 @@ extension UIImage
         return image
     }
     
-    public func imageWithBackground(_ color: UIColor) -> UIImage?
+    @objc public func imageWithBackground(_ color: UIColor) -> UIImage?
     {
         UIGraphicsBeginImageContext(self.size)
         
@@ -557,7 +557,7 @@ extension UIImage
         return image
     }
     
-    public func imageWithTintcolor(_ color: UIColor) -> UIImage?
+    @objc public func imageWithTintcolor(_ color: UIColor) -> UIImage?
     {
         UIGraphicsBeginImageContextWithOptions(self.size, false, UIScreen.main.scale)
         if let context = UIGraphicsGetCurrentContext()
@@ -581,7 +581,7 @@ extension UIImage
         return coloredImage
     }
     
-    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1))
+    @objc public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1))
     {
         let rect = CGRect(origin: .zero, size: size)
         UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
@@ -597,7 +597,7 @@ extension UIImage
 
 extension CALayer
 {
-    public func imageFromLayer() -> UIImage?
+    @objc public func imageFromLayer() -> UIImage?
     {
         UIGraphicsBeginImageContext(self.frame.size)
         if let context = UIGraphicsGetCurrentContext()
@@ -630,12 +630,12 @@ extension DispatchQueue
 
 extension Bundle
 {
-    public var releaseVersionNumber: String
+    @objc public var releaseVersionNumber: String
     {
         return (infoDictionary?["CFBundleShortVersionString"] as? String) ?? ""
     }
     
-    public var buildVersionNumber: String
+    @objc public var buildVersionNumber: String
     {
         return (infoDictionary?["CFBundleVersion"] as? String) ?? ""
     }

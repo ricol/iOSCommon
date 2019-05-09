@@ -12,12 +12,12 @@ public typealias Block = () -> ()
 
 @objc public class Functions: NSObject
 {
-    static public func isIphone() -> Bool
+    @objc static public func isIphone() -> Bool
     {
         return UIDevice.current.userInterfaceIdiom == .phone
     }
     
-    static public func generateUUID() -> String
+    @objc static public func generateUUID() -> String
     {
         if #available(iOS 9.0, *)
         {
@@ -48,7 +48,7 @@ public typealias Block = () -> ()
         second = total - minute * 60
     }
     
-    static public func getRandomRect(_ max: Int) -> CGRect
+    @objc static public func getRandomRect(_ max: Int) -> CGRect
     {
         let x = Int(arc4random()) % max
         let y = Int(arc4random()) % max
@@ -56,8 +56,8 @@ public typealias Block = () -> ()
         let h = Int(arc4random()) % max
         return CGRect(x: x, y: y, width: w, height: h)
     }
-
-    static public func toJson(from object: Any) -> String
+    
+    @objc static public func toJson(from object: Any) -> String
     {
         if let objectData = try? JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions(rawValue: 0))
         {
@@ -68,7 +68,7 @@ public typealias Block = () -> ()
         return ""
     }
     
-    static public func getDocument() -> String
+    @objc static public func getDocument() -> String
     {
         let dirPaths = NSSearchPathForDirectoriesInDomains(.documentDirectory,
                                                            .userDomainMask, true)
