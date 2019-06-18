@@ -12,7 +12,7 @@ extension UIColor
 {
     @objc static public func randomColor() -> UIColor
     {
-        return UIColor(red: CGFloat(Int(arc4random()) % 255), green: CGFloat(Int(arc4random()) % 255), blue: CGFloat(Int(arc4random()) % 255), alpha: 1)
+        return UIColor(red: CGFloat(Int(arc4random()) % 255) / 255.0, green: CGFloat(Int(arc4random()) % 255) / 255.0, blue: CGFloat(Int(arc4random()) % 255) / 255.0, alpha: 1)
     }
     
     @objc public func lighter(by percentage: CGFloat = 30.0) -> UIColor?
