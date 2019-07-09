@@ -652,7 +652,7 @@ func areEqual (_ left: Any, _ right: Any) -> Bool
 
 extension Array where Element: Any
 {
-    static func == (left: [Element], right: [Element]) -> Bool
+    public static func == (left: [Element], right: [Element]) -> Bool
     {
         if left.count != right.count { return false }
         for (index, leftValue) in left.enumerated()
@@ -662,14 +662,14 @@ extension Array where Element: Any
         return true
     }
     
-    static func != (left: [Element], right: [Element]) -> Bool
+    public static func != (left: [Element], right: [Element]) -> Bool
     {
         return !(left == right)
     }
 }
 extension Dictionary where Value: Any
 {
-    static func == (left: [Key : Value], right: [Key : Value]) -> Bool
+    public static func == (left: [Key : Value], right: [Key : Value]) -> Bool
     {
         if left.count != right.count { return false }
         for element in left
@@ -680,7 +680,7 @@ extension Dictionary where Value: Any
         return true
     }
     
-    static func != (left: [Key : Value], right: [Key : Value]) -> Bool
+    public static func != (left: [Key : Value], right: [Key : Value]) -> Bool
     {
         return !(left == right)
     }
@@ -688,7 +688,7 @@ extension Dictionary where Value: Any
 
 extension NSArray
 {
-    @objc func compare(array: NSArray) -> Bool
+    @objc public func compare(array: NSArray) -> Bool
     {
         return (self as Array) == (array as Array)
     }
@@ -696,7 +696,7 @@ extension NSArray
 
 extension NSDictionary
 {
-    @objc func compare(dictionary: NSDictionary) -> Bool
+    @objc public func compare(dictionary: NSDictionary) -> Bool
     {
         return (self as Dictionary) == (dictionary as Dictionary)
     }
