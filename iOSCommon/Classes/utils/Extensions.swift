@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias BlockWithValue = (String) -> ()
+
 extension UIColor
 {
     @objc static public func randomColor() -> UIColor
@@ -699,5 +701,36 @@ extension NSDictionary
     @objc public func compare(dictionary: NSDictionary) -> Bool
     {
         return (self as Dictionary) == (dictionary as Dictionary)
+    }
+}
+
+extension UIViewController
+{
+    @objc public func popup(msg: String, title: String, complete: Block? = nil)
+    {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default) { (action) in
+            complete?()
+        }
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc public func input(msg: String, title: String, complete: @escaping BlockWithValue)
+    {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        alert.addTextField { (tf) in
+            
+        }
+        let ok = UIAlertAction(title: "OK", style: .default) { (action) in
+            if let text = alert.textFields?.first?.text
+            {
+                complete(text)
+            }
+        }
+        let cancel = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
     }
 }

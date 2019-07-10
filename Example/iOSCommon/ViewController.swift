@@ -26,11 +26,9 @@ class ViewController: UIViewController
     
     @IBAction func btnStartOnTapped(_ sender: Any)
     {
-        viewAnimation.startRotate()
     }
     
     @IBAction func btnStopOnTapped(_ sender: Any)
     {
-        viewAnimation.stopRotate()
     }
 }
