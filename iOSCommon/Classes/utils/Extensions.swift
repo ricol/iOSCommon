@@ -716,6 +716,18 @@ extension UIViewController
         self.present(alert, animated: true, completion: nil)
     }
     
+    @objc public func confirm(msg: String, title: String, confirm: Block? = nil)
+    {
+        let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .default) { (action) in
+            confirm?()
+        }
+        let cancel = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     @objc public func input(msg: String, title: String, complete: @escaping BlockWithValue)
     {
         let alert = UIAlertController(title: title, message: msg, preferredStyle: .alert)
