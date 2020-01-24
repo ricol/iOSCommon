@@ -364,8 +364,8 @@ extension UINavigationController
             navVCs.removeLast()
             i += 1
         }
-        setViewControllers(navVCs, animated: false)
-        pushViewController(vc, animated: animated)
+        navVCs.append(vc)
+        setViewControllers(navVCs, animated: animated)
     }
     
     @objc public func popToRootAndThenPush(vc: UIViewController, animated: Bool)
