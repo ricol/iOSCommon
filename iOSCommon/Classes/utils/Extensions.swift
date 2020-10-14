@@ -366,6 +366,11 @@ extension UINavigationController
         }
         navVCs.append(vc)
         setViewControllers(navVCs, animated: animated)
+        DispatchQueue.main.runAfter(milliseconds: 500) {
+            UIView.animate(withDuration: 0.3) {
+                self.view.layoutSubviews()
+            }
+        }
     }
     
     @objc public func popToRootAndThenPush(vc: UIViewController, animated: Bool)
@@ -376,6 +381,11 @@ extension UINavigationController
             vcs.append(first)
             vcs.append(vc)
             setViewControllers(vcs, animated: animated)
+            DispatchQueue.main.runAfter(milliseconds: 500) {
+                UIView.animate(withDuration: 0.3) {
+                    self.view.layoutSubviews()
+                }
+            }
         }
     }
 }
